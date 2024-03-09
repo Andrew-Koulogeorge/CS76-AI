@@ -9,6 +9,7 @@ If white has won, I return $1000$ (larger than the sum of all the material, sign
 
 ## Looking for Intelligence
 --- > At max depth 1, we see that the AI is not able to see ahead on its moves; it acts greedily and tries to take any material that it can! It pays the price for its inability to look ahead and I take the knight with my queen.
+```text
 __________________________
 EXAMPLE 1 (look at .md file)
 
@@ -24,8 +25,10 @@ R N B Q K B N R
 a b c d e f g h
 
 Black to move
+```
 
 MinimaxAI Made 19 moves to find the move h6g4 while searching to a depth of 1
+```text
 r n b q k b r .
 p p p p p p p p
 . . . . . . . .
@@ -38,9 +41,9 @@ R N B Q K B N R
 a b c d e f g h
 
 White to move
+```
 
-Please enter your move: 
-d1g4
+```text
 r n b q k b r .
 p p p p p p p p
 . . . . . . . .
@@ -52,11 +55,12 @@ R N B . K B N R
 ----------------
 a b c d e f g h
 __________________________
-
+```
 --- > With a little bit deeper of a depth, the AI is able to see that this is a bad idea and does not capture!
 
 __________________________
-EXAMPLE 2 (look at .md file)
+```text
+EXAMPLE 2 
 r n b q k b . r
 p p p p p p p p
 . . . . . . . n
@@ -69,8 +73,9 @@ R N B Q K B N R
 a b c d e f g h
 
 Black to move
-
+```text
  MinimaxAI Made 13481 calls to minimax to find the move f7f6 while searching to a depth of 3
+```text
 r n b q k b . r
 p p p p p . p p
 . . . . . p . n
@@ -84,8 +89,10 @@ a b c d e f g h
 
 White to move
 __________________________
+```
 
 --- > The Minimax AI does take easy wins. In this example we see the AI finds the mate in 1!
+```text
 __________________________
 EXAMPLE 3 (look at .md file)
 r n b . k b n r
@@ -98,10 +105,11 @@ P P P P B . . P
 R N . Q K B N R
 ----------------
 a b c d e f g h
-
+```
 Black to move
 
  MinimaxAI Made 29054 calls to minimax to find the move f4h4 while searching to a depth of 3
+```text
 r n b . k b n r
 p p p . p p p p
 . . . . . . . .
@@ -112,14 +120,14 @@ P P P P B . . P
 R N . Q K B N R
 ----------------
 a b c d e f g h
-
+```
 White to move
 0-1
 __________________________
 
 ## Iterative deepening
 For each move in iterative deepening, we print out how many calls were made to Minimax for this depth level and we also output what the AI thinks is the best move for that partiuclar depth. In the following example, we see evidence that the AI is doing what humans call "calculation" and trying to weigh tradeoffs with taking vs not taking a particular peice. We can see that with only a depth of 1, the AI cannot take into account what the other player is going to do so the AI votes to take the pawn on g4. With a depth of 2, it sees that if it did indeed capture the pawn, then it would love a peice more valuable than a pawn to whites queen (weather they take with the rook or knight does not realy matter). With a depth of 3, however, the AI is able to see that indeed that square g4 would be protected by another one of its peices and the AI would be able to capture whites queen if it took back. Thus, the AI swtiches its move choice back to the greedy strategy and takes the pawn!
-
+```text
 __________________________
 r n b q k b r . (look at .md file)
 p p p p p p . p
@@ -131,7 +139,7 @@ P P P . . . . .
 R N B Q K B N R
 ----------------
 a b c d e f g h
-
+```
 Black to move
 
  MinimaxAI Made 24 moves to find the move None while searching to a depth of 3
@@ -142,7 +150,7 @@ Found a new move! Now the AI bot wants to move g8h8 instead of g8g4
 
  MinimaxAI Made 21345 moves to find the move g8h8 while searching to a depth of 3
 Found a new move! Now the AI bot wants to move g8g4 instead of g8h8
-
+```
 r n b q k b . .
 p p p p p p . p
 . . . . . . . n
@@ -154,12 +162,13 @@ R N B Q K B N R
 ----------------
 a b c d e f g h
 __________________________
-
+```
 
 ## Alpha-Beta Pruning
 With a depth of 5, vanilla alpha-beta pruning is able to make a first move in around a second. With a depth of 6, alpha-beta returns a move in around 10 seconds (around the same time as it takes standard to do 4). This kills the standard Minimax we were working with before that was not even able to compute 5 moves deep.
 
 Let us consider a randomly generated board that is well developed. For the same depth, we want to ensure that our alpha beta search is doing its job and cutting away branches that we know are bad. We consider both Minimax and AlphaBeta from this location with the same depth and compare the moves found by both AIs. Its great news to see that our two AI's found the same move and that Alpha Beta did it in signifcantly less calls. This is what we want!
+```
 __________________________
 r . b q . r k . (look at .md file)
 p p p . p p b p
@@ -171,11 +180,12 @@ P P P . Q P . P
 R . B . . R K .
 ----------------
 a b c d e f g h
-
+```
 Black to move
 
 MinimaxAI Made 39436 calls to minimax to find the move c8h3 while searching to a depth of 3 
 
+```text
 r . . q . r k .
 p p p . p p b p
 . . n p . n . .
@@ -199,11 +209,11 @@ P P P . Q P . P
 R . B . . R K .
 ----------------
 a b c d e f g h
-
+```
 Black to move
 
 AlphaBetaAI Made 2545 calls to minimax to find the move c8h3 while searching to a depth of 3 
-
+```text
 r . . q . r k .
 p p p . p p b p
 . . n p . n . .
@@ -215,7 +225,9 @@ R . B . . R K .
 ----------------
 a b c d e f g h
 __________________________
+```
 What if we tried to increase the depth of both of the AIs? Well, we know that the standard Minimax cannot see anything past 4 layers. For a position that is as complicated as this one, it will be even worst. What about Alpha Beta? It does not disappoint! We can see from the iterative deepening output of the algorithm, the algorithm is able to identify a stronger move than the one at 3 layers deep by leveraging its ability to search deeper in the tree.
+```text
 __________________________
 r . b q . r k . (look at .md file)
 p p p . p p b p 
@@ -227,7 +239,7 @@ P P P . Q P . P
 R . B . . R K .
 ----------------
 a b c d e f g h
-
+```text
 Black to move
 
 Picked our first move : f6e4 
@@ -253,7 +265,7 @@ AlphaBetaAI Made 332254 moves to find the move g5g4 while searching to a depth o
 Found a new move! Now the AI bot wants to move c8g4 instead of g5g4
 
 AlphaBetaAI Made 1510983 moves to find the move c8g4 while searching to a depth of 6
-
+```text
 r . . q . r k .
 p p p . p p b p
 . . n p . n . .
@@ -265,7 +277,9 @@ R . B . . R K .
 ----------------
 a b c d e f g h
 __________________________
+```
 What if we tried to use our ordering theory on this complicated position? We would hope that by ordering the childen nodes in Alpha Beta, that we would be able to chop off more branches of the tree and significantly reduce our search time. Indeed, this is exatly what we see! We end up making over 1 million less calls to Minimax by sorting the next states by which states look most appealing for the current player (based on the evaluation function). Note that the fact that the two different AIs found different moves for this board does not mean there is a wrentch in the code. At each level, the AI starts a brand new search. If two states have the same evaluation function score, then whichever move that comes first will be the move that is played by the AI. Since in the OrderingAI we order each of the actions before we consider which one to explore, the order in which we explore actions is different and thus the two AIs could just have discovered 2 moves with equal evaluation score in different orders!
+```text
 __________________________
 r . b q . r k .
 p p p . p p b p
@@ -277,7 +291,7 @@ P P P . Q P . P
 R . B . . R K .
 ----------------
 a b c d e f g h
-
+```
 Black to move
 
 Picked our first move : f6e4 
@@ -303,7 +317,7 @@ AlphaBetaAIOrdering Made 44435 moves to find the move g5g4 while searching to a 
 We are staying with our current best move g5g4
 
 AlphaBetaAIOrdering Made 233037 moves to find the move g5g4 while searching to a depth of 6
-
+```text
 r . b q . r k .
 p p p . p p b p
 . . n p . n . .
@@ -315,11 +329,13 @@ R . B . . R K .
 ----------------
 a b c d e f g h
 __________________________
+```
 
 ## Transposition table
 For the transposition table, instead of trying to use a native python set to store each of the boards, I used a dictonary which maps the hashed value of the board string to the most recent look up value. We never need to store terminal state values in the table because there is no recursive work thats required for those boards. We add a value to the table when before we bottle up the Chess tree and return the minimax value of a node to its parent. Before we look into a nodes children, we check the table to see if we have seen this state before. If we have seen it, we are able to just return the value of the board in our hashtable using the key index from hashing the string representation of the board.
 
 Lets now see an example where our transposition table prevent calls in minimax or alpha-beta. I created another random and very complex board so it takes the AIs a little bit more time to find the moves. Note that for the first $3$ depths of the search, the number of function calls for both AIs are the same. This could be because of the complexity of the board given. For only a few moves ahead, its possible that there was no way to reach the same board with a different move ordering. Note, however, that as as the depth grew to 4 and 5, the transposition table prevented almost 1 million function calls! This makes a lot of sense. As we are looking deeper and deeper down the tree, there are going to be more paths the same state using different move orders. Yay! Also, both AIs got to the same move! Looking great!
+```text
 __________________________
 r k r . . . . .
 p . . . p p b p
@@ -331,7 +347,7 @@ P . P . . N P .
 R . K R . . . .
 ----------------
 a b c d e f g h
-
+```
 Black to move
 
 Picked our first move : a5a4 
@@ -353,7 +369,7 @@ AlphaBetaAI Made 500736 moves to find the move a5a4 while searching to a depth o
 We are staying with our current best move a5a4
 
 AlphaBetaAI Made 3,251,589 moves to find the move a5a4 while searching to a depth of 5
-
+```text
 r k r . . . . .
 p . . . p p b p
 . p n p . n . .
@@ -377,7 +393,7 @@ R . K R . . . .
 a b c d e f g h
 
 Black to move
-
+```
 Picked our first move : a5a4 
 
 AlphaBetaAITable Made 42 moves to find the move a5a4 while searching to a depth of 1
@@ -397,7 +413,7 @@ AlphaBetaAITable Made 473946 moves to find the move a5a4 while searching to a de
 We are staying with our current best move a5a4
 
 AlphaBetaAITable Made 2,302,334 moves to find the move a5a4 while searching to a depth of 5
-
+```text
 r k r . . . . .
 p . . . p p b p
 . p n p . n . .
@@ -409,7 +425,7 @@ R . K R . . . .
 ----------------
 a b c d e f g h
 __________________________
-
+```
 # Litturature Review
 It is important to understand the history of problems. For example- Why do we care about this problem? What are ways people have tried to solve this problem in the past? How are people currently solving this problem? How do these solutions compare to eachother? What are the reasons for new solution emergence? In this section, I will be reading and reviewing (in my opinion) the two most important computer science papers in the history of Chess AI. The first is from Shannon where he kicked off the discussion of Chess AIs and proposes some inital methods. The second is from Silver, a Reinforcement Learning expert from Deep Mind, who proposes what is today considered to be the dominant (and very generalizable) method for training AI to win at deterministic, perfect information games. Both of these texts are extremely technical and dense so I will be highlighting key and interesting results and ideas from both papers.
 
